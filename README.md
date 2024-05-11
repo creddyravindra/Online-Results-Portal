@@ -7,8 +7,6 @@ Introduction
 
 This project is an online results portal developed using PHP, MySQL, and Python. It provides a platform for students and faculty to access and manage academic results conveniently.
 
-![Results Portal](images/results_portal_screenshot.png)
-
 Setup Instructions
 ------------------
 
@@ -28,10 +26,10 @@ To run this project locally, follow these steps:
 
 4. **Database Setup**:
 - Open a web browser and navigate to `http://localhost/phpmyadmin`.
-- Import the database schema by running `functions.php` from the `demo` folder.
+- Import the database schema by running `functions.php` from the `demo` folder i.e `http://localhost/demo/functions.php`.
 
 5. **Access Portal**:
-- Open a web browser and go to `http://localhost/final_project/demo/ksrm.html`.
+- Open a web browser and go to `http://localhost/demo/ksrm.html`.
 - Click on "Login" to access the login page.
 
 Usage
@@ -48,8 +46,6 @@ Usage
 ### Faculty Login
 - **Username**: faculty
 - **Password**: 00000000
-
-![Login Page](images/login_page_screenshot.png)
 
 Features
 --------
