@@ -1,6 +1,5 @@
 
-**Online Results Portal **
-
+Online Results Portal
 
 Introduction
 ------------
