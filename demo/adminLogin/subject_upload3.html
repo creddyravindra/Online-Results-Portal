@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <!-- Linking Google font link for icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <style>
+	body{
+	overflow:hidden;
+	background: #e7f2fd;
+}
+
+ p {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-black);
+  display: inline-block;
+  margin: 20px;
+  white-space: nowrap;
+}
+
+	
+ h1 {
+            text-align: center;
+			margin-top:100px;
+            margin-bottom: 10px;
+			font-size: 20Px;
+            color: var(--color-black);
+            text-align: center;
+			font-weight:bold;
+
+        }
+ form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top:20px;
+			
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+			margin-top:25px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+		
+    input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+			width:90px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+			
+        }
+		.btn {
+		width:90px;
+		}
+		 h2 {
+            text-align: center;
+			margin-top:80px;
+            margin-bottom: 10px;
+			font-size: 20Px;
+            color: var(--color-black);
+            text-align: center;
+			font-weight:bold;
+
+        }
+		 h3 {
+            text-align: center;
+			margin-top:10px;
+            margin-bottom: 10px;
+			font-size: 20Px;
+            color: var(--color-black);
+            text-align: center;
+			font-weight:bold;
+
+        }
+	</style>
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet" />
+  </head>
+  <body>
+ <!--side bar Start-->
+
+    
+   
+	<!-- side bar end-->
+   
+	<!--navbar start-->
+	<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd";>
+        <div class="navbar-brand" id="user"></div>
+                
+        
+        <div class="collapse navbar-collapse" id="navbarText">
+            
+        </div>
+		</nav>
+		</div>
+		<!--navbar end--> 
+		<!--content part start -->
+		<h2>UPLOAD SUBJECT CSV FILE</h2>
+
+    <!-- Form for CSV File Upload -->
+     <form action="./subject_upload.php" method="post" enctype="multipart/form-data" class="animated fadeIn">
+
+        <!-- File input for CSV -->
+		
+       <div class="form-group">
+            <label for="csv_file">Choose CSV File:</label><br>
+
+           <input type="file" id="csv_file" name="csv_file" accept=".csv" required><br><br>
+
+        </div>
+            
+
+
+        <!-- Upload button for CSV -->
+        <input type="submit" value="Upload">
+		<div id="notification"></div>
+        </form>
+
+    <br>
+    <br>
+	<h3>INSERT INDIVIDUAL SUBJECT DETAILS</h3>
+    <!-- Form for Manual Entry -->
+    <form id="manualEntryForm" action="./subject_upload.php" method="post">
+        <div class="form-row">
+            <!-- Subject Number input -->
+            <div class="form-group col-md-6">
+                <label for="subject_code">Enter Subject Code:</label>
+            <input type="text" id="subject_code" name="subject_code" required>
+            </div>
+            <!-- Subject Code input -->
+            <div class="form-group col-md-6">
+                
+            <label for="subject_name">Enter Subject Name:</label>
+            <input type="text" id="subject_name" name="subject_name" required>
+            </div>
+        </div>
+		 <label for="subject_credits">Enter Subject Credits:</label><br>
+            <input type="number" id="subject_credits" name="subject_credits" required><br><br>
+
+
+        <!-- Upload button for Manual Entry -->
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+ <div id="notification"></div>
+    </div>
+     
+	
+
+	<!--content part end -->
+
+    <script>
+	
+	   const urlParams = new URLSearchParams(window.location.search);
+        const notification = urlParams.get('notification');
+        if (notification) {
+            document.getElementById('notification').innerText = notification;
+        }
+
+        const success = urlParams.get('success');
+        if (success === '1') {
+            const successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.style.display = 'block';
+            }
+        }
+    </script>
+  </body>
+</html>

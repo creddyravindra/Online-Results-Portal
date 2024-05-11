@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <!-- Linking Google font link for icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+   
+	<link rel="stylesheet" href="../style sheet/loadingStyle1.css">
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet" />
+  </head>
+  <style>
+  body{
+	overflow:hidden;
+	background: #e7f2fd;
+}
+
+ p {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-black);
+  display: inline-block;
+  margin: 20px;
+  white-space: nowrap;
+}
+
+	
+ h1 {
+            text-align: center;
+			margin-top:100px;
+            margin-bottom: 10px;
+			font-size: 20Px;
+            color: var(--color-black);
+            text-align: center;
+			font-weight:bold;
+
+        }
+ form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			margin-top:20px;
+			
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+			margin-top:25px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+		
+    input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+			width:90px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+			
+        }
+		.btn {
+		width:90px;
+		}
+		 h2 {
+            text-align: center;
+			margin-top:80px;
+            margin-bottom: 10px;
+			font-size: 20Px;
+            color: var(--color-black);
+            text-align: center;
+			font-weight:bold;
+
+        }
+		 h3 {
+            text-align: center;
+			margin-top:10px;
+            margin-bottom: 10px;
+			font-size: 20Px;
+            color: var(--color-black);
+            text-align: center;
+			font-weight:bold;
+
+        }
+  </style>
+  <body>
+ <!--side bar Start-->
+
+    
+	<!--navbar start-->
+	<div class="container">
+	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd";>
+       <div class="navbar-brand" id="user"></div>
+                
+        <div class="collapse navbar-collapse" id="navbarText">
+            
+        </div>
+		</nav>
+		</div>
+		<!--navbar end--> 
+		<!--content part start -->
+		<h1>UPLOAD STUDENT DETAILS CSV FILE</h1>
+
+    <!-- Form for CSV File Upload -->
+    <form id="uploadForm" action="./student_details_upload.php" method="post" enctype="multipart/form-data" class="animate__animated animate__fadeIn">
+	<label for="csv_file">Choose CSV File:</label><br>
+        <input type="file" name="studentFile" accept=".csv"><br>
+		
+        <button type="submit">Upload</button>
+		<div id="notification"></div>
+    </div>
+	<div id="information"></div>
+    <!-- Loading symbol -->
+    <div class="loader" style="display: none;"></div>
+
+    </form>
+
+        <!-- Upload button for CSV -->
+       
+    </form>
+    <br>
+    <br>
+    
+    </form>
+     
+	<script>
+	   function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        function displayNotification() {
+            var successMessage = getParameterByName('success');
+            if (successMessage === 'true') {
+                document.getElementById("information").innerHTML = 'Data inserted successfully!';
+            }
+        }
+
+        $(document).ready(function() {
+            displayNotification();
+
+            $("#uploadForm").submit(function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Display the loader immediately upon form submission
+                $(".loader").show();
+
+                // AJAX form submission
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(response) {
+                        $(".loader").hide();
+                        if (response === "success") {
+                            window.location.href = "./student_details_upload.html?success=true";
+                        } else {
+                            $("#information").html(response);
+                        }
+                    }
+                });
+            });
+        });
+	</script>
+  </body>
+</html>
